@@ -32,7 +32,8 @@ app.get("/", (req, res) => {
 //POST METHOD
 app.post('/',async (req, res) => {
     const todoTask = new TodoTask({
-    content: req.body.content
+    content: req.body.content,
+    image: req.body.image
     });
     try {
     await todoTask.save();

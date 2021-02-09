@@ -103,3 +103,15 @@
     cursor:pointer;
     text-decoration: none;
     }
+
+    #imageUrl{
+        display: none;
+      }
+  
+      .image-display{
+        background-position: center;
+        background-size: cover;
+        height: 70px;
+        width: 70px;
+      }
+  

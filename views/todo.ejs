@@ -12,29 +12,49 @@
     
 </head>
     
-    <body>
-    
-        <div class="todo-container">
-            <h2>To-Do List</h2>
-                <div class="todo">
-                    <form action="/" method="POST" class="todo-header">
-                        <input type="text" name="content">
-                        <button type="submit"><span class="fas fa-plus"></span></button>
-                    </form>
-                    <ul class="todo-list">
-                        <% todoTasks.forEach(details => { %>
-                        <li class="todo-list-item">
-                        <div class="todo-list-item-name"><%= details.content %></div>
-                        <a href="/edit/<%= details._id %>" class="edit">
+</head>
+<body>
+    <div class="todo-container">
+        <h2>To-Do List</h2>
+        <div class="todo">
+            <form action="/" method="POST" class="todo-header">
+                <input type="text" name="content">
+                <input id="imageUrl" type="text" name="image">
+                <button type="submit"><span class="fas fa-plus"></span></button>
+            </form>
+            <button id="upload_widget" class="cloudinary-button">Upload files</button>
+            <ul class="todo-list">
+                <% todoTasks.forEach(details => { %>
+                <li class="todo-list-item">
+                    <div class="todo-list-item-name"><%= details.content %></div>
+
+                    <a href="/edit/<%= details._id %>" class="edit">
                         <span class="fas fa-edit"></span>
-                        </a>
-                        <a href="/remove/<%= details._id %>" class="remove">
+                    </a>
+                    <a href="/remove/<%= details._id %>" class="remove">
                         <span class="fas fa-times"></span>
-                        </a>
-                        </li>
-                        <% }) %>
-                        </ul>
-                </div>
-            mk</div>
-    </body>
-</html>
+                    </a>
+                </li>
+                <div class="image-display" style="background-image: url('<%= details.image %>')"></div>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+var myWidget = cloudinary.createUploadWidget({
+  cloudName: 'djzilkbxi',
+  uploadPreset: 'v3sgrayw'}, (error, result) => {
+    if (!error && result && result.event === "success") {
+      console.log('Done! Here is the image info: ', result.info);
+      document.getElementById("imageUrl").value = result.info.url
+    }
+  }
+)
+
+document.getElementById("upload_widget").addEventListener("click", function(){
+    myWidget.open();
+  }, false);
+</script>
